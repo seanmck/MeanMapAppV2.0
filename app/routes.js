@@ -1,6 +1,7 @@
 // Dependencies
 var mongoose        = require('mongoose');
 var User            = require('./model.js');
+var appInsights     = require('applicationinsights');
 
 
 // Opens App Routes
@@ -100,9 +101,13 @@ module.exports = function(app) {
 
         // Execute Query and Return the Query Results
         query.exec(function(err, users){
-            if(err)
+            if(err) {
+                client.trackDependency("mongodb", "query", end, true);
+                console.log("Execution time: %dms", end);
+
                 res.send(err);
-            else
+            }
+            else {
                 // If no errors, respond with a JSON of all users that meet the criteria
 
                 var end = new Date() - start;
@@ -110,6 +115,7 @@ module.exports = function(app) {
                 console.log("Execution time: %dms", end);
                 
                 res.json(users);
+            }
         });
     });
 
