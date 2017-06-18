@@ -95,12 +95,20 @@ module.exports = function(app) {
             query = query.where('htmlverified').equals("Yep (Thanks for giving us real data!)");
         }
 
+        let client = appInsights.getClient();
+        var start = new Date();
+
         // Execute Query and Return the Query Results
         query.exec(function(err, users){
             if(err)
                 res.send(err);
             else
                 // If no errors, respond with a JSON of all users that meet the criteria
+
+                var end = new Date() - start;
+                client.trackDependency("mongodb", "query", end, true);
+                console.log("Execution time: %dms", end);
+                
                 res.json(users);
         });
     });

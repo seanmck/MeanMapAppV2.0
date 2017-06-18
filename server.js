@@ -7,12 +7,16 @@ var database        = require('./app/config');
 var morgan          = require('morgan');
 var bodyParser      = require('body-parser');
 var methodOverride  = require('method-override');
+var appInsights     = require('applicationInsights');
 var app             = express();
 
 // Express Configuration
 // -----------------------------------------------------
 // Sets the connection to MongoDB
 mongoose.connect(database.cosmosdb.url);
+
+// Sets up Application Insights
+appInsights.start();
 
 // Logging and Parsing
 app.use(express.static(__dirname + '/public'));                 // sets the static files location to public
