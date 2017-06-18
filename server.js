@@ -16,6 +16,7 @@ var app             = express();
 mongoose.connect(database.cosmosdb.url);
 
 // Sets up Application Insights
+appInsights.setup();
 appInsights.start();
 
 // Logging and Parsing
