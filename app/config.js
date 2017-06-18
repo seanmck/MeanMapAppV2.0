@@ -2,11 +2,9 @@
 
 module.exports = {
 
-    mongolab:
+    cosmosdb:
     {
-        name: "mongolab",
-        url: "mongodb://BigCoder:BigCoder!@ds139817.mlab.com:39817/heroku_cnkn5vpn",
-        port: 27017
+        url: process.env.CUSTOMCONNSTR_MONGODB
     },
 
     local:
