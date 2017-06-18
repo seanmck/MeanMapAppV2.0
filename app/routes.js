@@ -3,6 +3,8 @@ var mongoose        = require('mongoose');
 var User            = require('./model.js');
 var appInsights     = require('applicationinsights');
 
+appInsights.setup();
+appInsights.start();
 
 // Opens App Routes
 module.exports = function(app) {
